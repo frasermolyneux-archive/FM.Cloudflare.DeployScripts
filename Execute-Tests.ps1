@@ -7,11 +7,7 @@ Set-Location $PSScriptRoot
 
 $moduleRoot = "$PSScriptRoot"
 
-Get-ChildItem -Path "$PSScriptRoot\Internal" -Filter "*.ps1" | ForEach-Object {
-    . $_.FullName
-}
-
-Get-ChildItem -Path "$PSScriptRoot\Functions" -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$PSScriptRoot\Internal", "$PSScriptRoot\Functions" -Filter "*.ps1" | ForEach-Object {
     . $_.FullName
 }
 
