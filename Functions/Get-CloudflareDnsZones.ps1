@@ -17,7 +17,16 @@ function Get-CloudflareDnsZones {
             "X-Auth-Email" = $AuthEmail
         }
 
-        $response = Invoke-RestMethod -Uri "https://api.cloudflare.com/client/v4/zones" -Headers $headers
+        try {
+            $response = Invoke-RestMethod -Uri "https://api.cloudflare.com/client/v4/zones" -Headers $headers
+        }
+        catch {
+            $result = $_.Exception.Response.GetResponseStream()
+            $reader = New-Object System.IO.StreamReader($result)
+            $reader.BaseStream.Position = 0
+            $reader.DiscardBufferedData()
+            $response = $reader.ReadToEnd();
+        }
 
         Write-Debug $response
 
