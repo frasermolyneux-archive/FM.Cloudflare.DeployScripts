@@ -9,13 +9,14 @@ steps:
   displayName: 'Execute-Tests'
   inputs:
     targetType: filePath
-    filePath: './Execute-Tests.ps1'
+    filePath: './src/Execute-Tests.ps1'
     failOnStderr: true
 
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  displayName: 'Copy Files to: $(build.ArtifactStagingDirectory)'
   inputs:
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    SourceFolder: './src'
+    TargetFolder: '$(build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
